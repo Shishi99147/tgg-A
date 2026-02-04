@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Just For You ❤️</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(to bottom,#ff9a9e,#fad0c4);
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  overflow:hidden;
+  animation:fadeIn 2s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+.box{
+  background:rgba(255,255,255,0.25);
+  padding:25px;
+  border-radius:22px;
+  width:90%;
+  max-width:400px;
+  text-align:center;
+  z-index:2;
+  backdrop-filter: blur(8px);
+  box-shadow:0 0 25px rgba(255,255,255,0.3);
+  animation:popBox 1s ease;
+}
+
+@keyframes popBox{
+  from{transform:scale(0.8); opacity:0;}
+  to{transform:scale(1); opacity:1;}
+}
+
+button,input,textarea{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border:none;
+  border-radius:15px;
+  font-size:15px;
+}
+
+button{
+  background:white;
+  color:#ff4d6d;
+  cursor:pointer;
+  font-weight:bold;
+  transition:0.2s;
+}
+
+button:hover{
+  transform:scale(1.05);
+}
+
+textarea{
+  height:80px;
+}
+
+.sticker{
+  position:fixed;
+  bottom:-300px;
+  left:50%;
+  transform:translateX(-50%) scale(0.5);
+  animation:pop 1.2s ease forwards;
+  z-index:10;
+}
+
+@keyframes pop{
+  to{
+    bottom:110px;
+    transform:translateX(-50%) scale(1);
+  }
+}
+
+.sticker img{
+  width:220px;
+  border-radius:20px;
+}
+
+.heart{
+  position:fixed;
+  color:white;
+  font-size:22px;
+  animation:float 3s linear forwards;
+}
+
+@keyframes float{
+  from{bottom:0; opacity:1;}
+  to{bottom:100vh; opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+<source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Scott_Holmes_Music/Corporate__Motivational_Music/Scott_Holmes_Music_-_01_-_Sad_Piano.mp3">
+</audio>
+
+<div class="box" id="app"></div>
+
+<script>
+const app=document.getElementById("app");
+const music=document.getElementById("music");
+let answers={};
+
+// PAGE 1
+function page1(){
+app.innerHTML=`
+<h2>Enjoy your gift 💌</h2>
+<p>I made this only for you</p>
+<button onclick="music.play(); page2()">Start 🥹</button>`;
+}
+
+// PAGE 2
+function page2(){
+app.innerHTML=`
+<h3>Be honest 😏</h3>
+<p>Do you remember our first meet?</p>
+<button onmouseover="move(this)">No 😳</button>
+<button onclick="page3()">Of course 🥹</button>`;
+}
+
+function move(btn){
+btn.style.position="absolute";
+btn.style.left=Math.random()*70+"%";
+btn.style.top=Math.random()*70+"%";
+}
+
+// PAGE 3
+function page3(){
+app.innerHTML=`
+<h3>Answer me ✍️</h3>
+<input id="q1" placeholder="When did we first meet?">
+<textarea id="q2" placeholder="Our best memory…"></textarea>
+<textarea id="q3" placeholder="What reminds you of me?"></textarea>
+<textarea id="q4" placeholder="How do I make you feel?"></textarea>
+<button onclick="save()">Send 💌</button>`;
+}
+
+function save(){
+answers.q1=document.getElementById("q1").value;
+answers.q2=document.getElementById("q2").value;
+answers.q3=document.getElementById("q3").value;
+answers.q4=document.getElementById("q4").value;
+page4();
+}
+
+// PAGE 4
+function page4(){
+app.innerHTML=`
+<p>
+I will always be your Valentine ye rouhy 🤍 <br><br>
+bon awel Valentine’s Day maa baadhna haltou hlila keyenou or maybe fi wa9tou bch i9arrabna akther.. 😉<br>
+nhb n9olk I’m sooo proud of you, you did so good 🫶 always remember that I’ll always be by your side 🥹<br>
+Inshallah we’ll never break up again, I’ll always love you and want you by my side ❤️<br>
+I’m really happy I met you… nshallah rabi ykhalik laya ✨
+</p>
+<button onclick="page6()">Continue 😌</button>`;
+}
+
+// PAGE 6
+function page6(){
+app.innerHTML=`
+<h3>I just wanted to tell you..</h3>
+
+<h5>I will always choose u to be ma man Twahachtk barcha walah Nshallah rabi isahlena fi kol haja ema le b9odret rabi.. </h5>
+<h2>i will marry u anyway 💋❣️</h2><p>w nhot raindance ur fingerr i can put a rock in ittt 💃🏼💃🏼
+<br>Netfakr awl maaraftk samitek haka "🐒" f snap </p>
+<textarea id="reply" placeholder="Write your reply here…"></textarea>
+<button onclick="saveReply()">Send reply 💌</button>`;
+}
+
+function saveReply(){
+answers.reply = document.getElementById("reply").value;
+page7();
+}
+
+// PAGE 7 FINAL LINK
+function page7(){
+let link=
+location.origin+location.pathname+
+"?meet="+encodeURIComponent(answers.q1)+
+"&memory="+encodeURIComponent(answers.q2)+
+"&remind="+encodeURIComponent(answers.q3)+
+"&feel="+encodeURIComponent(answers.q4)+
+"&reply="+encodeURIComponent(answers.reply);
+
+app.innerHTML=`
+<h3>Send me this link so I can read 💞</h3>
+<input value="${link}" readonly>
+<button onclick="page8()">Continue 🥹</button>`;
+}
+
+// PAGE 8 FINAL
+function page8(){
+app.innerHTML=`
+<h3>
+You will always be a beautiful part of my heart 😘<br><br>
+Thank you for the love and every moment we shared❣️
+<br>Happy Valentine's Day ye rouhyy 💌</h3>
+<button onclick="showSticker()">bisouxx 💋</button>`;
+}
+
+// VIEW ANSWERS
+const params=new URLSearchParams(location.search);
+
+if(params.has("meet")){
+app.innerHTML=`
+<h3>Your answers 💞</h3>
+<p><b>First meet:</b><br>${params.get("meet")}</p>
+<p><b>Best memory:</b><br>${params.get("memory")}</p>
+<p><b>Reminds you of me:</b><br>${params.get("remind")}</p>
+<p><b>How I make you feel:</b><br>${params.get("feel")}</p>
+
+${params.has("reply") ? `
+<p><b>Their reply:</b><br>${params.get("reply")}</p>
+` : ""}
+
+<button onclick="showSticker()">One last thing 🥹</button>`;
+}else{
+page1();
+}
+
+// HEARTS EFFECT
+function hearts(){
+const h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"%";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),3000);
+}
+
+// STICKER POP
+function showSticker(){
+const s=document.createElement("div");
+s.className="sticker";
+s.innerHTML=`<img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">`;
+document.body.appendChild(s);
+
+for(let i=0;i<30;i++){
+setTimeout(hearts,i*120);
+}
+}
+</script>
+
+</body>
+</html>
